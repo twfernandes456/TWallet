@@ -9,7 +9,7 @@ class Amount {
   final Decimal value;
 
   Decimal get original =>
-      value * Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision);
+      value * Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision).toDecimal();
   String get humanReadable => Util.formatDecimal(
         value,
         Application.globalEnv.tokenHumanReadablePrecision,
@@ -31,9 +31,10 @@ class Amount {
   }
 
   factory Amount.parse(dynamic value) {
+    // Decimal.fromInt(10).pow(10).toDecimal()
     return Amount(
       (Decimal.parse(value as String) /
-              Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision))
+              Decimal.fromInt(10).pow(Application.globalEnv.tokenPrecision).toDecimal())
           .toDecimal(),
     );
   }
